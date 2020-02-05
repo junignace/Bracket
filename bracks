@@ -1,0 +1,71 @@
+a= input('Enter the first boundary: ');
+b= input('Enter the second boundary: ');
+tempa= a;
+tempb= b;
+
+for n = 1:1000
+
+c= (a+b)/2;
+
+A = exp(-a)- log(a);
+B = exp(-b)- log(b);
+C = exp(-c)- log(c);
+
+if A*B > 0
+    fprintf('error interval \n');
+    break;
+end
+
+if abs(C) < 0.0001
+    break;
+elseif C > 0 && A > 0
+    a=c;
+elseif C < 0 && B < 0
+    b=c;
+elseif C < 0 && B < 0
+    a=c;
+elseif C > 0 && B > 0
+    b=c;
+
+
+end
+
+end
+
+for k= 1:1000
+    
+    i= exp(-tempa)- log(tempa);
+    j= tempb-tempa;
+    l=exp(-tempb)- log(tempb);
+    secc = (tempa) - ((i*j)/(l-i)); 
+    
+    secA = exp(-tempa)- log(tempa);
+    secB = exp(-tempb)- log(tempb);
+    secC = exp(-secc)- log(secc);
+    
+    
+    if secA*secB > 0
+        fprintf('error interval \n');
+        break;
+    end
+    if abs(secC) < 0.0001
+        break;
+    elseif secC > 0 && secA > 0
+        tempa=secc;
+    elseif secC < 0 && secB < 0
+        tempb=secc;
+    elseif secC < 0 && secB < 0
+        tempa=secc;
+    elseif secC > 0 && secB > 0
+        tempb=secc;
+    end
+end
+
+fprintf('The root is %.6f after %.f iterations using Bisection Method \n',c,n)
+fprintf('The root is %.6f after %.f iterations using Regula-Falsi Method \n',secc,k)
+
+
+
+
+    
+
